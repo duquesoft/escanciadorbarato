@@ -51,10 +51,10 @@ export default function RootLayout({
 
           <div className="flex items-center gap-2 sm:gap-3">
             <a
-              href="/"
-              className="text-lg sm:text-xl font-semibold text-gray-800 whitespace-nowrap"
-            >
-              Escanciador
+              href="/carrito"
+              className="text-black-700 hover:text-green-900 font-semibold text-lg sm:text-xl whitespace-nowrap"
+              >
+              Carrito
             </a>
 
             <CartIcon />

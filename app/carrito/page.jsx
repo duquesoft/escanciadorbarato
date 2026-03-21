@@ -19,15 +19,7 @@ export default function Carrito() {
   const total = carrito.reduce((acc, p) => acc + p.precio, 0);
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-10">
-
-      {/* VOLVER */}
-      <a
-        href="/"
-        className="inline-block mb-6 text-green-700 hover:text-green-900 font-semibold"
-      >
-        ← Volver a la página principal
-      </a>
+    <div className="max-w-4xl mx-auto px-6 py-10">     
 
       <h1 className="text-3xl font-bold mb-6">Carrito</h1>
 
