@@ -14,6 +14,9 @@ export default function Carrito() {
     nuevoCarrito.splice(index, 1);
     setCarrito(nuevoCarrito);
     localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
+     
+    // 🔥 Esto actualiza el header instantáneamente
+    window.dispatchEvent(new Event("carrito-actualizado"));
   };
 
   const total = carrito.reduce((acc, p) => acc + p.precio, 0);
