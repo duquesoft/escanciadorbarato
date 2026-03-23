@@ -12,10 +12,7 @@ export default function CartIcon() {
   useEffect(() => {
     actualizar();
 
-    // Evento personalizado
     window.addEventListener("carrito-actualizado", actualizar);
-
-    // Evento storage (para otras pestañas)
     window.addEventListener("storage", actualizar);
 
     return () => {
@@ -25,7 +22,7 @@ export default function CartIcon() {
   }, []);
 
   return (
-    <a href="/carrito" className="relative">
+    <div className="relative">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -44,6 +41,6 @@ export default function CartIcon() {
       <span className="absolute -top-2 -right-2 bg-green-600 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
         {count}
       </span>
-    </a>
+    </div>
   );
 }

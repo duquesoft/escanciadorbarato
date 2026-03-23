@@ -8,12 +8,12 @@ import { AuthButton } from "./AuthButton";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname(); // Detecta la ruta actual
+  const pathname = usePathname();
 
   return (
     <header className="w-full bg-white/70 backdrop-blur-md shadow-sm py-3 px-4 flex items-center justify-between sticky top-0 z-50 relative">
 
-      {/* Botón Home o placeholder invisible */}
+      {/* IZQUIERDA: Botón Home o placeholder invisible */}
       {pathname !== "/" ? (
         <Link
           href="/"
@@ -22,16 +22,16 @@ export default function Header() {
           ← Página principal
         </Link>
       ) : (
-        // Placeholder invisible para mantener alineación
+        // Placeholder invisible (NO ocultar en PC)
         <span className="text-lg sm:text-xl opacity-0 select-none">
           ← Página principal
         </span>
       )}
 
-      {/* Zona derecha: Carrito + Icono + Hamburguesa */}
+      {/* DERECHA */}
       <div className="flex items-center gap-4">
 
-        {/* Carrito + Icono juntos */}
+        {/* Carrito + Icono */}
         <Link href="/carrito" className="flex items-center gap-1">
           <span className="text-black hover:text-green-900 font-semibold text-lg">
             Carrito
@@ -39,7 +39,7 @@ export default function Header() {
           <CartIcon />
         </Link>
 
-        {/* Botón hamburguesa (solo móvil) */}
+        {/* Hamburguesa móvil */}
         <button
           className="md:hidden text-3xl"
           onClick={() => setOpen(!open)}
@@ -53,7 +53,7 @@ export default function Header() {
         </nav>
       </div>
 
-      {/* Menú móvil desplegable */}
+      {/* Menú móvil */}
       {open && (
         <nav className="absolute top-full left-0 w-full bg-white shadow-md flex flex-row items-center justify-around p-4 md:hidden z-50">
           <div onClick={() => setOpen(false)}>
