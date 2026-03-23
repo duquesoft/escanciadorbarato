@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import CartIcon from "./components/CartIcon";
-import { AuthButton } from "./components/AuthButton";
+import Header from "./components/Header";
 
 // GEIST (variable font)
 const geist = localFont({
@@ -38,34 +37,8 @@ export default function RootLayout({
       className={`${geist.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-
-        {/* HEADER GLOBAL */}
-        <header className="w-full bg-white/70 backdrop-blur-md shadow-sm py-3 px-4 flex items-center justify-between sticky top-0 z-50">
-
-          <a
-            href="/"
-            className="text-green-700 hover:text-green-900 font-semibold text-lg sm:text-xl whitespace-nowrap"
-
-          >
-            ← Pagina principal
-          </a>
-
-          <div className="flex items-center gap-2 sm:gap-3">
-            <a
-              href="/carrito"
-              className="text-black-700 hover:text-green-900 font-semibold text-lg sm:text-xl whitespace-nowrap"
-              >
-              Carrito
-            </a>
-
-            <CartIcon />
-            
-            <AuthButton />
-          </div>
-        </header>
-
+        <Header />
         {children}
-
       </body>
     </html>
   );
