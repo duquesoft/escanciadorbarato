@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import CartIcon from "./components/CartIcon";
+import { AuthButton } from "./components/AuthButton";
 
 // GEIST (variable font)
 const geist = localFont({
@@ -58,6 +59,8 @@ export default function RootLayout({
             </a>
 
             <CartIcon />
+            
+            <AuthButton />
           </div>
         </header>
 
