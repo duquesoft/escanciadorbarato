@@ -144,7 +144,7 @@ export default function Home() {
             />
           </div>
 
-          {/* BLOQUE AUTOMÁTICO (MÓVIL) — DEGRADADO + SOMBRA SUAVE */}
+          {/* BLOQUE AUTOMÁTICO (MÓVIL) */}
           <div className="w-full p-6 rounded-xl text-center 
                           bg-gradient-to-b from-black/10 via-black/5 to-black/10
                           shadow-lg shadow-black/20">
@@ -203,8 +203,8 @@ export default function Home() {
       {/* CARACTERÍSTICAS (PC + móvil) */}
       <section className="grid md:grid-cols-3 gap-8 py-16 animate-fade-in-up">
 
-        {/* Automático — PC */}
-        <div className="p-6 rounded-xl text-center 
+        {/* Automático — SOLO PC */}
+        <div className="p-6 rounded-xl text-center hidden md:block
                         bg-gradient-to-b from-black/10 via-black/5 to-black/10
                         shadow-lg shadow-black/20">
           <h3 className="text-xl font-semibold mb-2">Automático</h3>
