@@ -27,18 +27,21 @@ export function AuthButton() {
     const checkUser = async () => {
       try {
         const {
-          data: { user },
-        } = await supabase.auth.getUser()
-        setUser(user)
+          data: { session },
+        } = await supabase.auth.getSession()
+        const currentUser = session?.user ?? null
+        setUser(currentUser)
 
         // Verificar si es admin
-        if (user) {
-          await checkAdminStatus(user)
+        if (currentUser) {
+          await checkAdminStatus(currentUser)
         } else {
           setIsAdmin(false)
         }
       } catch (error) {
         console.error('Error checking user:', error)
+        setUser(null)
+        setIsAdmin(false)
       } finally {
         setLoading(false)
       }
@@ -50,13 +53,22 @@ export function AuthButton() {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      const currentUser = session?.user ?? null
-      setUser(currentUser)
+      try {
+        setLoading(true)
+        const currentUser = session?.user ?? null
+        setUser(currentUser)
 
-      if (currentUser) {
-        await checkAdminStatus(currentUser)
-      } else {
+        if (currentUser) {
+          await checkAdminStatus(currentUser)
+        } else {
+          setIsAdmin(false)
+        }
+      } catch (error) {
+        console.error('Error processing auth state change:', error)
+        setUser(null)
         setIsAdmin(false)
+      } finally {
+        setLoading(false)
       }
     })
 
@@ -76,7 +88,13 @@ export function AuthButton() {
   }
 
   if (loading) {
-    return <div className="w-12 h-12 bg-gray-200 rounded-md animate-pulse" />
+    return (
+      <div className="flex gap-2" aria-busy="true" aria-live="polite">
+        <span className="px-4 py-2 bg-gray-200 text-gray-500 rounded-md animate-pulse">
+          Cargando...
+        </span>
+      </div>
+    )
   }
 
   if (user) {
