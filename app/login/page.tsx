@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
+import { translateSupabaseAuthError } from '@/lib/supabase/auth-errors'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -25,7 +26,7 @@ export default function LoginPage() {
       })
 
       if (error) {
-        setError(error.message)
+        setError(translateSupabaseAuthError(error.message, 'login'))
         return
       }
 

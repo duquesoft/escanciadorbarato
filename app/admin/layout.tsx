@@ -92,6 +92,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               Pedidos
             </Link>
             <Link
+              href="/admin/productos"
+              className="block px-4 py-2 rounded-lg hover:bg-gray-800 transition"
+            >
+              Productos
+            </Link>
+            <Link
               href="/admin/reportes"
               className="block px-4 py-2 rounded-lg hover:bg-gray-800 transition"
             >

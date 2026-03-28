@@ -127,7 +127,7 @@ export default function EditUserPage() {
                 ...user,
                 shipping: { ...user.shipping, addressLine1: e.target.value },
               })}
-              placeholder="Dirección (Línea 1)"
+              placeholder="Dirección línea 1 - Tipo de vía (calle, avenida, etc)"
             />
 
             <input
@@ -137,7 +137,7 @@ export default function EditUserPage() {
                 ...user,
                 shipping: { ...user.shipping, addressLine2: e.target.value },
               })}
-              placeholder="Dirección (Línea 2)"
+              placeholder="Dirección línea 2 - Piso, puerta, escalera, bloque o datos adicionales"
             />
           </div>
 

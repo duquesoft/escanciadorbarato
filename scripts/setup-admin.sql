@@ -79,4 +79,92 @@ INSERT INTO public.store_settings (key, value)
 VALUES ('shipping_fee', 0)
 ON CONFLICT (key) DO NOTHING;
 
+-- Catálogo de productos
+CREATE TABLE IF NOT EXISTS public.products (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  description TEXT DEFAULT '',
+  price NUMERIC(10,2) NOT NULL CHECK (price >= 0),
+  image_url TEXT NOT NULL,
+  gallery JSONB NOT NULL DEFAULT '[]'::jsonb,
+  is_active BOOLEAN NOT NULL DEFAULT true,
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_products_is_active ON public.products(is_active);
+CREATE INDEX IF NOT EXISTS idx_products_sort_order ON public.products(sort_order);
+
+ALTER TABLE public.products ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Public can view active products" ON public.products;
+CREATE POLICY "Public can view active products"
+  ON public.products FOR SELECT
+  USING (is_active = true);
+
+DROP POLICY IF EXISTS "Admins can view all products" ON public.products;
+CREATE POLICY "Admins can view all products"
+  ON public.products FOR SELECT
+  USING (
+    EXISTS (
+      SELECT 1
+      FROM public.user_roles ur
+      WHERE ur.user_id = auth.uid() AND ur.role = 'admin'
+    )
+  );
+
+DROP POLICY IF EXISTS "Admins can insert products" ON public.products;
+CREATE POLICY "Admins can insert products"
+  ON public.products FOR INSERT
+  WITH CHECK (
+    EXISTS (
+      SELECT 1
+      FROM public.user_roles ur
+      WHERE ur.user_id = auth.uid() AND ur.role = 'admin'
+    )
+  );
+
+DROP POLICY IF EXISTS "Admins can update products" ON public.products;
+CREATE POLICY "Admins can update products"
+  ON public.products FOR UPDATE
+  USING (
+    EXISTS (
+      SELECT 1
+      FROM public.user_roles ur
+      WHERE ur.user_id = auth.uid() AND ur.role = 'admin'
+    )
+  )
+  WITH CHECK (
+    EXISTS (
+      SELECT 1
+      FROM public.user_roles ur
+      WHERE ur.user_id = auth.uid() AND ur.role = 'admin'
+    )
+  );
+
+DROP POLICY IF EXISTS "Admins can delete products" ON public.products;
+CREATE POLICY "Admins can delete products"
+  ON public.products FOR DELETE
+  USING (
+    EXISTS (
+      SELECT 1
+      FROM public.user_roles ur
+      WHERE ur.user_id = auth.uid() AND ur.role = 'admin'
+    )
+  );
+
+INSERT INTO public.products (name, description, price, image_url, gallery, is_active, sort_order)
+SELECT
+  'Escanciador Automático',
+  'Disfruta de la sidra natural con este escanciador automático a batería.',
+  79.90,
+  '/img/i1862459534.webp',
+  '["/img/i1862459534.webp", "/img/i1862459545.webp", "/img/i1862467445.webp", "/img/i1862486538.webp", "/img/i1862488481.webp"]'::jsonb,
+  true,
+  0
+WHERE NOT EXISTS (
+  SELECT 1 FROM public.products WHERE name = 'Escanciador Automático'
+);
+
 

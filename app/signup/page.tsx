@@ -143,7 +143,7 @@ export default function SignupPage() {
               id="addressLine1"
               name="addressLine1"
               type="text"
-              placeholder="Dirección (Línea 1)"
+              placeholder="Dirección línea 1 - Tipo de vía (calle, avenida, etc)"
               className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300"
               value={formData.shipping.addressLine1}
               onChange={handleShippingChange}
@@ -153,7 +153,7 @@ export default function SignupPage() {
               id="addressLine2"
               name="addressLine2"
               type="text"
-              placeholder="Dirección (Línea 2 - opcional)"
+              placeholder="Dirección línea 2 - Piso, puerta, escalera, bloque o datos adicionales"
               className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300"
               value={formData.shipping.addressLine2}
               onChange={handleShippingChange}

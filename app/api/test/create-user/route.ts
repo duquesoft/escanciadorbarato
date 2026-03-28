@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
+import { translateSupabaseAuthError } from '@/lib/supabase/auth-errors'
 
 /**
  * POST /api/test/create-user
@@ -44,7 +45,7 @@ export async function POST(req: NextRequest) {
     })
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 400 })
+      return NextResponse.json({ error: translateSupabaseAuthError(error.message, 'signup') }, { status: 400 })
     }
 
     return NextResponse.json(

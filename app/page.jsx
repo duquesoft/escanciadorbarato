@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 // trigger redeploy
 
@@ -66,12 +67,12 @@ export default function Home() {
           Diseño minimalista, funcionamiento automático y acabado premium.
         </p>
 
-        <a
+        <Link
           href="/producto"
           className="inline-block bg-green-600 hover:bg-green-700 text-white py-4 px-10 rounded-xl text-xl font-semibold shadow-lg transition-transform hover:scale-105"
         >
           Comprar ahora
-        </a>
+        </Link>
       </section>
 
       {/* VIDEO + IMÁGENES */}

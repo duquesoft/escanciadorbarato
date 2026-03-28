@@ -103,13 +103,21 @@ export default function AdminDashboard() {
         {/* Acceso a pedidos */}
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-xl font-bold text-gray-900 mb-4">Gestión</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Link
               href="/admin/pedidos"
               className="block p-4 border-2 border-blue-600 rounded-lg text-center hover:bg-blue-50 transition"
             >
               <p className="text-lg font-semibold text-blue-600">Ver todos los pedidos</p>
               <p className="text-sm text-gray-600 mt-1">Gestiona todos los pedidos del sistema</p>
+            </Link>
+
+            <Link
+              href="/admin/productos"
+              className="block p-4 border-2 border-amber-600 rounded-lg text-center hover:bg-amber-50 transition"
+            >
+              <p className="text-lg font-semibold text-amber-700">Editar productos</p>
+              <p className="text-sm text-gray-600 mt-1">Crea, modifica u oculta productos de la web</p>
             </Link>
 
             <Link

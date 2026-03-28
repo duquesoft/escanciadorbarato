@@ -32,6 +32,19 @@ ON CONFLICT(user_id) DO UPDATE SET role = 'admin';
 - Solo usuarios con rol `admin` pueden acceder
 - Serás redirigido a `/admin/dashboard` automáticamente
 
+### 4. Configurar subida de imágenes (importante para Vercel)
+
+La subida de imágenes de productos usa **Supabase Storage** (persistente en producción).
+
+- Variable opcional: `SUPABASE_PRODUCTS_BUCKET` (por defecto: `product-images`)
+- Requisitos: mantener `NEXT_PUBLIC_SUPABASE_URL` y `SUPABASE_SERVICE_ROLE_KEY` configuradas en Vercel
+- El API crea el bucket automáticamente si no existe
+- Las imágenes se optimizan automáticamente al subirlas (máximo 1920x1920 y compresión por formato)
+
+Si prefieres crearlo manualmente en Supabase Storage:
+1. Crear bucket público con nombre `product-images` (o el valor de `SUPABASE_PRODUCTS_BUCKET`)
+2. Permitir tipos de archivo de imagen (jpg/png/webp/gif/avif)
+
 ---
 
 ## 📊 Funcionalidades del Panel Admin

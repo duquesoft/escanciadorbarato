@@ -2,24 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient as createAdminClient } from '@supabase/supabase-js'
 import { emptyShippingDetails, serializeShippingDetails, type ShippingDetails } from '@/lib/shipping'
-
-function translateAuthError(message: string): string {
-  const normalized = message.toLowerCase()
-
-  if (normalized.includes('already been registered') || normalized.includes('already registered')) {
-    return 'Ya existe un usuario registrado con este correo electrónico'
-  }
-
-  if (normalized.includes('password should be at least')) {
-    return 'La contraseña debe tener al menos 6 caracteres'
-  }
-
-  if (normalized.includes('invalid email')) {
-    return 'El correo electrónico no es válido'
-  }
-
-  return 'No se pudo crear la cuenta. Revisa los datos e inténtalo de nuevo'
-}
+import { translateSupabaseAuthError } from '@/lib/supabase/auth-errors'
 
 export async function GET() {
   try {
@@ -169,7 +152,7 @@ export async function POST(req: NextRequest) {
     })
 
     if (error) {
-      return NextResponse.json({ error: translateAuthError(error.message) }, { status: 400 })
+      return NextResponse.json({ error: translateSupabaseAuthError(error.message, 'signup') }, { status: 400 })
     }
 
     const { error: userInsertError } = await supabaseAdmin.from("users").insert({

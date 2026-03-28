@@ -258,7 +258,7 @@ export default function AccountPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="addressLine1" className="block text-sm font-medium text-gray-700 mb-1">
-                      Direccion (Linea 1)
+                      Dirección línea 1 - Tipo de vía (calle, avenida, etc)
                     </label>
                     <input
                       id="addressLine1"
@@ -271,7 +271,7 @@ export default function AccountPage() {
                   </div>
                   <div>
                     <label htmlFor="addressLine2" className="block text-sm font-medium text-gray-700 mb-1">
-                      Direccion (Linea 2)
+                      Dirección línea 2 - Piso, puerta, escalera, bloque o datos adicionales
                     </label>
                     <input
                       id="addressLine2"
