@@ -4,6 +4,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import ProductDescription from "@/app/components/ProductDescription";
+import PaymentMethods from "@/app/components/PaymentMethods";
 
 export default function ProductoClient({ initialProducts }) {
   const products = Array.isArray(initialProducts) ? initialProducts : [];
@@ -141,6 +142,14 @@ export default function ProductoClient({ initialProducts }) {
                 Añadir al carrito
               </button>
 
+              <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1.5 text-xs text-gray-500 bg-white/70 border border-gray-100 rounded-xl px-4 py-2.5">
+                <span className="flex items-center gap-1">🔒 Pago 100% seguro</span>
+                <span className="flex items-center gap-1">🚚 Envío 24/72h</span>
+                <span className="flex items-center gap-1">💬 Atención personalizada</span>
+              </div>
+
+              <PaymentMethods className="mt-3" />
+
               <Link
                 href="/carrito"
                 className="inline-block mt-4 text-green-700 hover:text-green-900 font-semibold text-sm sm:text-base"
@@ -159,30 +168,30 @@ export default function ProductoClient({ initialProducts }) {
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Preguntas frecuentes</h2>
           <div className="space-y-4 text-sm sm:text-base text-gray-700">
             <div>
-              <h3 className="font-semibold text-gray-900">Como funciona el escanciador de sidra automatico?</h3>
+              <h3 className="font-semibold text-gray-900">¿Cómo funciona el escanciador de sidra automático?</h3>
               <p>
-                Funciona con un boton de activacion que impulsa la sidra de forma constante para facilitar
-                un servicio comodo, limpio y uniforme.
+                Funciona con un botón de activación que impulsa la sidra de forma constante para facilitar
+                un servicio cómodo, limpio y uniforme.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">Cuanto tarda en cargar la bateria?</h3>
+              <h3 className="font-semibold text-gray-900">¿Cuánto tarda en cargar la batería?</h3>
               <p>La carga completa recomendada es de aproximadamente 2 horas con un cargador compatible.</p>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">Sirve para uso diario?</h3>
-              <p>Si, esta disenado para uso frecuente tanto en casa como en reuniones y hosteleria.</p>
+              <h3 className="font-semibold text-gray-900">¿Sirve para uso diario?</h3>
+              <p>Sí, está diseñado para uso frecuente tanto en casa como en reuniones y hostelería.</p>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">Que incluye la compra?</h3>
+              <h3 className="font-semibold text-gray-900">¿Qué incluye la compra?</h3>
               <p>
-                Incluye el escanciador y sus componentes principales. El contenido exacto puede variar segun
-                la configuracion actual del producto.
+                Incluye el escanciador y sus componentes principales. El contenido exacto puede variar según
+                la configuración actual del producto.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">Haceis envios rapidos?</h3>
-              <p>Si, trabajamos para que recibas tu pedido lo antes posible con seguimiento del envio.</p>
+              <h3 className="font-semibold text-gray-900">¿Hacéis envíos rápidos?</h3>
+              <p>Sí, trabajamos para que recibas tu pedido lo antes posible con seguimiento del envío.</p>
             </div>
           </div>
         </section>

@@ -27,9 +27,9 @@ body {
   min-height: 100vh;
   background: linear-gradient(
     to bottom,
-    #d1d5db,   /* gray-300 */
-    #f3f4f6,   /* gray-100 */
-    #ffffff    /* white */
+    #d1d5db,
+    #f3f4f6,
+    #ffffff
   );
   background-repeat: no-repeat;
   background-size: cover;

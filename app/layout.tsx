@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { createClient as createAdminClient } from "@supabase/supabase-js";
 import { DEFAULT_HEADER_THEME, HeaderTheme, parseHeaderThemeRecord } from "@/lib/header-theme";
+import { unstable_noStore as noStore } from "next/cache";
 
 const DEFAULT_WHATSAPP_NUMBER = "";
 
@@ -133,6 +134,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  noStore();
   const whatsappNumber = await getWhatsappNumber();
   const headerTheme = await getHeaderTheme();
   const websiteJsonLd = {

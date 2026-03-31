@@ -71,15 +71,15 @@ export default async function ProductoPage() {
     mainEntity: [
       {
         "@type": "Question",
-        name: "Como funciona el escanciador de sidra automatico?",
+        name: "¿Cómo funciona el escanciador de sidra automático?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Funciona con un boton de activacion que impulsa la sidra de forma constante para facilitar un servicio comodo, limpio y uniforme.",
+          text: "Funciona con un botón de activación que impulsa la sidra de forma constante para facilitar un servicio cómodo, limpio y uniforme.",
         },
       },
       {
         "@type": "Question",
-        name: "Cuanto tarda en cargar la bateria?",
+        name: "¿Cuánto tarda en cargar la batería?",
         acceptedAnswer: {
           "@type": "Answer",
           text: "La carga completa recomendada es de aproximadamente 2 horas con un cargador compatible.",
@@ -87,26 +87,26 @@ export default async function ProductoPage() {
       },
       {
         "@type": "Question",
-        name: "Sirve para uso diario?",
+        name: "¿Sirve para uso diario?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Si, esta disenado para uso frecuente tanto en casa como en reuniones y hosteleria.",
+          text: "Sí, está diseñado para uso frecuente tanto en casa como en reuniones y hostelería.",
         },
       },
       {
         "@type": "Question",
-        name: "Que incluye la compra?",
+        name: "¿Qué incluye la compra?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Incluye el escanciador y sus componentes principales. El contenido exacto puede variar segun la configuracion actual del producto.",
+          text: "Incluye el escanciador y sus componentes principales. El contenido exacto puede variar según la configuración actual del producto.",
         },
       },
       {
         "@type": "Question",
-        name: "Haceis envios rapidos?",
+        name: "¿Hacéis envíos rápidos?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Si, trabajamos para que recibas tu pedido lo antes posible con seguimiento del envio.",
+          text: "Sí, trabajamos para que recibas tu pedido lo antes posible con seguimiento del envío.",
         },
       },
     ],

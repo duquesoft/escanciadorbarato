@@ -175,7 +175,8 @@ export default function Home() {
           <div className="w-full p-6 rounded-xl text-center 
                           bg-gradient-to-b from-black/10 via-black/5 to-black/10
                           shadow-lg shadow-black/20">
-            <h3 className="text-xl font-semibold mb-2">Automático</h3>
+            <div className="text-3xl mb-3" aria-hidden="true">⚡</div>
+          <h3 className="text-xl font-semibold mb-2">Automático</h3>
             <p>Sirve la sidra con solo pulsar un botón.</p>
           </div>
 
@@ -238,6 +239,7 @@ export default function Home() {
         <div className="p-6 rounded-xl text-center hidden md:block
                         bg-gradient-to-b from-black/10 via-black/5 to-black/10
                         shadow-lg shadow-black/20">
+          <div className="text-3xl mb-3" aria-hidden="true">⚡</div>
           <h3 className="text-xl font-semibold mb-2">Automático</h3>
           <p>Sirve la sidra con solo pulsar un botón.</p>
         </div>
@@ -246,6 +248,7 @@ export default function Home() {
         <div className="p-6 rounded-xl text-center 
                         bg-gradient-to-b from-black/10 via-black/5 to-black/10
                         shadow-lg shadow-black/20">
+          <div className="text-3xl mb-3" aria-hidden="true">🔋</div>
           <h3 className="text-xl font-semibold mb-2">A batería</h3>
           <p>Autonomía perfecta para reuniones y eventos.</p>
         </div>
@@ -254,6 +257,7 @@ export default function Home() {
         <div className="p-6 rounded-xl text-center 
                         bg-gradient-to-b from-black/10 via-black/5 to-black/10
                         shadow-lg shadow-black/20">
+          <div className="text-3xl mb-3" aria-hidden="true">✨</div>
           <h3 className="text-xl font-semibold mb-2">Diseño elegante</h3>
           <p>Acabado moderno en acero y madera.</p>
         </div>
