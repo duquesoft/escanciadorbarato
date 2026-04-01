@@ -22,11 +22,64 @@ export default function Home() {
 
   const [fadeIzquierda, setFadeIzquierda] = useState(true);
   const [fadeDerecha, setFadeDerecha] = useState(true);
+  const [indiceImagenAmpliada, setIndiceImagenAmpliada] = useState(null);
+  const [inicioToqueX, setInicioToqueX] = useState(null);
 
   const [pausadoIzquierda, setPausadoIzquierda] = useState(false);
   const [pausadoDerecha, setPausadoDerecha] = useState(false);
   const totalImagenesIzquierda = imagenesIzquierda.length;
   const totalImagenesDerecha = imagenesDerecha.length;
+  const galeriaImagenes = [...new Set([...imagenesIzquierda, ...imagenesDerecha])];
+
+  const setPremiumPlaybackRate = (event) => {
+    event.currentTarget.playbackRate = 0.95;
+  };
+
+  const abrirImagenAmpliada = (src) => {
+    const indice = galeriaImagenes.indexOf(src);
+    if (indice !== -1) {
+      setIndiceImagenAmpliada(indice);
+    }
+  };
+
+  const cerrarImagenAmpliada = () => {
+    setIndiceImagenAmpliada(null);
+  };
+
+  const mostrarAnteriorImagen = () => {
+    setIndiceImagenAmpliada((prev) => {
+      if (prev === null) return prev;
+      return (prev - 1 + galeriaImagenes.length) % galeriaImagenes.length;
+    });
+  };
+
+  const mostrarSiguienteImagen = () => {
+    setIndiceImagenAmpliada((prev) => {
+      if (prev === null) return prev;
+      return (prev + 1) % galeriaImagenes.length;
+    });
+  };
+
+  const manejarInicioToque = (event) => {
+    setInicioToqueX(event.touches[0].clientX);
+  };
+
+  const manejarFinToque = (event) => {
+    if (inicioToqueX === null) return;
+
+    const finToqueX = event.changedTouches[0].clientX;
+    const deltaX = finToqueX - inicioToqueX;
+
+    if (Math.abs(deltaX) > 40) {
+      if (deltaX > 0) {
+        mostrarAnteriorImagen();
+      } else {
+        mostrarSiguienteImagen();
+      }
+    }
+
+    setInicioToqueX(null);
+  };
 
   useEffect(() => {
     const intervalo = setInterval(() => {
@@ -35,9 +88,9 @@ export default function Home() {
         setTimeout(() => {
           setIndexIzquierda((prev) => (prev + 1) % totalImagenesIzquierda);
           setFadeIzquierda(true);
-        }, 300);
+        }, 240);
       }
-    }, 3000);
+    }, 4500);
 
     return () => clearInterval(intervalo);
   }, [pausadoIzquierda, totalImagenesIzquierda]);
@@ -49,12 +102,36 @@ export default function Home() {
         setTimeout(() => {
           setIndexDerecha((prev) => (prev + 1) % totalImagenesDerecha);
           setFadeDerecha(true);
-        }, 300);
+        }, 240);
       }
-    }, 3000);
+    }, 4500);
 
     return () => clearInterval(intervalo);
   }, [pausadoDerecha, totalImagenesDerecha]);
+
+  useEffect(() => {
+    if (indiceImagenAmpliada === null) return;
+
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        cerrarImagenAmpliada();
+      }
+      if (event.key === "ArrowLeft") {
+        mostrarAnteriorImagen();
+      }
+      if (event.key === "ArrowRight") {
+        mostrarSiguienteImagen();
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [indiceImagenAmpliada]);
 
   return (
     <div className="max-w-6xl mx-auto px-6">
@@ -101,7 +178,7 @@ export default function Home() {
         <div className="hidden md:flex w-full items-center justify-center gap-16">
 
           {/* Imagen izquierda */}
-          <div className="w-1/3 h-[520px] rounded-xl overflow-hidden relative">
+          <div className="w-1/3 h-[520px] rounded-xl overflow-hidden relative border border-slate-300/60 bg-white/40 shadow-[0_8px_20px_rgba(15,23,42,0.08)]">
             <img
               src={imagenesIzquierda[indexIzquierda]}
               className="absolute inset-0 w-full h-full object-cover scale-125 blur-lg opacity-70"
@@ -114,27 +191,33 @@ export default function Home() {
               onMouseLeave={() => setPausadoIzquierda(false)}
               onTouchStart={() => setPausadoIzquierda(true)}
               onTouchEnd={() => setPausadoIzquierda(false)}
-              className={`absolute inset-0 w-full h-full object-contain rounded-xl transition-opacity duration-700 ${
-                fadeIzquierda ? "opacity-100" : "opacity-0"
+              onClick={() => abrirImagenAmpliada(imagenesIzquierda[indexIzquierda])}
+              className={`absolute inset-0 w-full h-full object-contain rounded-xl transition-[opacity,transform] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                fadeIzquierda ? "opacity-100 scale-100 translate-y-0" : "opacity-20 scale-[1.025] translate-y-[2px]"
               }`}
+              style={{ cursor: "zoom-in" }}
               alt="Imagen del escanciador"
             />
+            <div className="absolute inset-[1px] pointer-events-none rounded-[11px] border border-white/70" />
           </div>
 
           {/* VIDEO */}
-          <div className="w-1/3 h-[520px] rounded-xl overflow-hidden">
+          <div className="w-1/3 h-[520px] rounded-xl overflow-hidden relative border border-slate-300/60 bg-white/40 shadow-[0_8px_20px_rgba(15,23,42,0.08)]">
             <video
               src="/video/video1.webm"
               autoPlay
               loop
               muted
               playsInline
-              className="w-full h-full object-cover object-top rounded-xl"
+              preload="metadata"
+              onLoadedMetadata={setPremiumPlaybackRate}
+              className="w-full h-full object-cover object-top rounded-xl brightness-[1.03] contrast-[1.05] saturate-[1.02]"
             />
+            <div className="absolute inset-[1px] pointer-events-none rounded-[11px] border border-white/70" />
           </div>
 
           {/* Imagen derecha */}
-          <div className="w-1/3 h-[520px] rounded-xl overflow-hidden relative">
+          <div className="w-1/3 h-[520px] rounded-xl overflow-hidden relative border border-slate-300/60 bg-white/40 shadow-[0_8px_20px_rgba(15,23,42,0.08)]">
             <img
               src={imagenesDerecha[indexDerecha]}
               className="absolute inset-0 w-full h-full object-cover scale-125 blur-lg opacity-70"
@@ -147,11 +230,14 @@ export default function Home() {
               onMouseLeave={() => setPausadoDerecha(false)}
               onTouchStart={() => setPausadoDerecha(true)}
               onTouchEnd={() => setPausadoDerecha(false)}
-              className={`absolute inset-0 w-full h-full object-contain rounded-xl transition-opacity duration-700 ${
-                fadeDerecha ? "opacity-100" : "opacity-0"
+              onClick={() => abrirImagenAmpliada(imagenesDerecha[indexDerecha])}
+              className={`absolute inset-0 w-full h-full object-contain rounded-xl transition-[opacity,transform] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                fadeDerecha ? "opacity-100 scale-100 translate-y-0" : "opacity-20 scale-[1.025] translate-y-[2px]"
               }`}
+              style={{ cursor: "zoom-in" }}
               alt="Imagen del escanciador"
             />
+            <div className="absolute inset-[1px] pointer-events-none rounded-[11px] border border-white/70" />
           </div>
 
         </div>
@@ -160,15 +246,18 @@ export default function Home() {
         <div className="md:hidden w-full flex flex-col items-center gap-0.5">
 
           {/* VIDEO */}
-          <div className="w-full rounded-xl overflow-hidden h-[560px] flex items-center justify-center mb-6">
+          <div className="w-full rounded-xl overflow-hidden h-[560px] flex items-center justify-center mb-6 relative border border-slate-300/60 bg-white/40 shadow-[0_8px_20px_rgba(15,23,42,0.08)]">
             <video
               src="/video/video1.webm"
               autoPlay
               loop
               muted
               playsInline
-              className="w-full h-full object-cover object-top rounded-xl"
+              preload="metadata"
+              onLoadedMetadata={setPremiumPlaybackRate}
+              className="w-full h-full object-cover object-top rounded-xl brightness-[1.03] contrast-[1.05] saturate-[1.02]"
             />
+            <div className="absolute inset-[1px] pointer-events-none rounded-[11px] border border-white/70" />
           </div>
 
           {/* BLOQUE AUTOMÁTICO (MÓVIL) */}
@@ -183,7 +272,7 @@ export default function Home() {
           <div className="flex w-full gap-0.5 mt-6">
 
             {/* Imagen izquierda móvil */}
-            <div className="w-1/2 rounded-xl overflow-hidden h-[270px] relative">
+            <div className="w-1/2 rounded-xl overflow-hidden h-[270px] relative border border-slate-300/60 bg-white/40 shadow-[0_8px_20px_rgba(15,23,42,0.08)]">
 
               <img
                 src={imagenesIzquierda[indexIzquierda]}
@@ -197,15 +286,18 @@ export default function Home() {
                 onMouseLeave={() => setPausadoIzquierda(false)}
                 onTouchStart={() => setPausadoIzquierda(true)}
                 onTouchEnd={() => setPausadoIzquierda(false)}
-                className={`absolute inset-0 w-full h-full object-contain rounded-xl transition-opacity duration-700 ${
-                  fadeIzquierda ? "opacity-100" : "opacity-0"
+                onClick={() => abrirImagenAmpliada(imagenesIzquierda[indexIzquierda])}
+                className={`absolute inset-0 w-full h-full object-contain rounded-xl transition-[opacity,transform] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  fadeIzquierda ? "opacity-100 scale-100 translate-y-0" : "opacity-20 scale-[1.025] translate-y-[2px]"
                 }`}
+                style={{ cursor: "zoom-in" }}
                 alt="Imagen del escanciador"
               />
+              <div className="absolute inset-[1px] pointer-events-none rounded-[11px] border border-white/70" />
             </div>
 
             {/* Imagen derecha móvil */}
-            <div className="w-1/2 rounded-xl overflow-hidden h-[270px] relative">
+            <div className="w-1/2 rounded-xl overflow-hidden h-[270px] relative border border-slate-300/60 bg-white/40 shadow-[0_8px_20px_rgba(15,23,42,0.08)]">
 
               <img
                 src={imagenesDerecha[indexDerecha]}
@@ -219,11 +311,14 @@ export default function Home() {
                 onMouseLeave={() => setPausadoDerecha(false)}
                 onTouchStart={() => setPausadoDerecha(true)}
                 onTouchEnd={() => setPausadoDerecha(false)}
-                className={`absolute inset-0 w-full h-full object-contain rounded-xl transition-opacity duration-700 ${
-                  fadeDerecha ? "opacity-100" : "opacity-0"
+                onClick={() => abrirImagenAmpliada(imagenesDerecha[indexDerecha])}
+                className={`absolute inset-0 w-full h-full object-contain rounded-xl transition-[opacity,transform] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  fadeDerecha ? "opacity-100 scale-100 translate-y-0" : "opacity-20 scale-[1.025] translate-y-[2px]"
                 }`}
+                style={{ cursor: "zoom-in" }}
                 alt="Imagen del escanciador"
               />
+              <div className="absolute inset-[1px] pointer-events-none rounded-[11px] border border-white/70" />
             </div>
 
           </div>
@@ -263,6 +358,81 @@ export default function Home() {
         </div>
 
       </section>
+
+      {indiceImagenAmpliada !== null && (
+        <div
+          className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={cerrarImagenAmpliada}
+        >
+          <button
+            type="button"
+            aria-label="Cerrar imagen ampliada"
+            className="absolute top-4 right-4 h-10 w-10 rounded-full bg-white/90 text-slate-900 text-xl leading-none shadow-md"
+            onClick={cerrarImagenAmpliada}
+          >
+            ×
+          </button>
+
+          <button
+            type="button"
+            aria-label="Imagen anterior"
+            className="hidden md:flex items-center justify-center absolute z-20 left-8 h-11 w-11 rounded-full bg-white/95 text-slate-900 text-2xl leading-none shadow-md"
+            onClick={(event) => {
+              event.stopPropagation();
+              mostrarAnteriorImagen();
+            }}
+          >
+            ‹
+          </button>
+
+          <button
+            type="button"
+            aria-label="Imagen siguiente"
+            className="hidden md:flex items-center justify-center absolute z-20 right-8 h-11 w-11 rounded-full bg-white/95 text-slate-900 text-2xl leading-none shadow-md"
+            onClick={(event) => {
+              event.stopPropagation();
+              mostrarSiguienteImagen();
+            }}
+          >
+            ›
+          </button>
+
+          <div
+            className="relative max-w-5xl w-full max-h-[90vh]"
+            onClick={(event) => event.stopPropagation()}
+            onTouchStart={manejarInicioToque}
+            onTouchEnd={manejarFinToque}
+          >
+            <img
+              src={galeriaImagenes[indiceImagenAmpliada]}
+              alt="Imagen ampliada del escanciador"
+              className="w-full h-full max-h-[90vh] object-contain rounded-2xl bg-white/5"
+            />
+          </div>
+
+          <div
+            className="md:hidden absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex items-center gap-7"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              aria-label="Imagen anterior"
+              className="h-11 w-11 rounded-lg bg-white/95 text-slate-900 text-2xl leading-none shadow-md"
+              onClick={mostrarAnteriorImagen}
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              aria-label="Imagen siguiente"
+              className="h-11 w-11 rounded-lg bg-white/95 text-slate-900 text-2xl leading-none shadow-md"
+              onClick={mostrarSiguienteImagen}
+            >
+              ›
+            </button>
+          </div>
+        </div>
+      )}
 
     </div>
   );

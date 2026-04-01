@@ -10,6 +10,7 @@ export default function ProductoClient({ initialProducts }) {
   const products = Array.isArray(initialProducts) ? initialProducts : [];
   const [selectedProductId, setSelectedProductId] = useState(products[0]?.id || "");
   const [imagenPrincipal, setImagenPrincipal] = useState(products[0]?.imageUrl || "");
+  const [imagenEnTransicion, setImagenEnTransicion] = useState(false);
 
   const productoSeleccionado = useMemo(() => {
     return products.find((product) => product.id === selectedProductId) || products[0] || null;
@@ -33,6 +34,15 @@ export default function ProductoClient({ initialProducts }) {
       setImagenPrincipal(productoSeleccionado.imageUrl);
     }
   }, [productoSeleccionado]);
+
+  useEffect(() => {
+    if (!imagenPrincipal) return;
+
+    setImagenEnTransicion(true);
+    const timeout = setTimeout(() => setImagenEnTransicion(false), 180);
+
+    return () => clearTimeout(timeout);
+  }, [imagenPrincipal]);
 
   const añadirAlCarrito = () => {
     if (!productoSeleccionado) {
@@ -89,13 +99,19 @@ export default function ProductoClient({ initialProducts }) {
         {productoSeleccionado ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <img
-                src={imagenPrincipal}
-                className="rounded-lg shadow w-full max-h-80 lg:max-h-[550px] object-contain bg-white"
-                alt={productoSeleccionado.name}
-              />
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-2 shadow-[0_8px_20px_rgba(15,23,42,0.06)]">
+                <div className="relative h-[320px] overflow-hidden rounded-lg bg-slate-100 lg:h-[550px]">
+                  <img
+                    src={imagenPrincipal}
+                    className={`h-full w-full object-contain drop-shadow-[0_8px_18px_rgba(15,23,42,0.16)] transition-opacity duration-200 ease-out ${
+                      imagenEnTransicion ? "opacity-85" : "opacity-100"
+                    }`}
+                    alt={productoSeleccionado.name}
+                  />
+                </div>
+              </div>
 
-              <div className="flex gap-3 mt-4 overflow-x-auto pb-2">
+              <div className="mt-5 flex gap-3 overflow-x-auto pb-2">
                 {imagenes.map((img, index) => (
                   <img
                     key={`${productoSeleccionado.id}-${index}`}
@@ -114,7 +130,7 @@ export default function ProductoClient({ initialProducts }) {
               <div>
                 <h2 className="text-2xl sm:text-3xl font-bold mb-3">{productoSeleccionado.name}</h2>
 
-                <p className="text-3xl sm:text-4xl font-semibold text-green-700 mb-4">
+                <p className="text-3xl sm:text-4xl font-black sm:font-extrabold lg:font-bold text-green-700 mb-4">
                   {(Number(productoSeleccionado.price) || 0).toFixed(2)} €
                 </p>
 

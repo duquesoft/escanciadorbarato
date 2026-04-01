@@ -105,7 +105,12 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Contacto</h4>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start">
-                <span className="mr-2">📧</span>
+                <span className="mr-2 mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-sky-500 text-white">
+                  <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M4 6.75h16a1 1 0 0 1 1 1v8.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-8.5a1 1 0 0 1 1-1Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="m4 8 8 6 8-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </span>
                 <a href="mailto:duquesoft@gmail.com" className="text-gray-400 hover:text-white transition">
                   duquesoft@gmail.com
                 </a>
