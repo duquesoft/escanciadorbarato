@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 // trigger redeploy
 
 export default function Home() {
@@ -27,6 +27,8 @@ export default function Home() {
 
   const [pausadoIzquierda, setPausadoIzquierda] = useState(false);
   const [pausadoDerecha, setPausadoDerecha] = useState(false);
+  const [debeCargarVideo, setDebeCargarVideo] = useState(false);
+  const videoSectionRef = useRef(null);
   const totalImagenesIzquierda = imagenesIzquierda.length;
   const totalImagenesDerecha = imagenesDerecha.length;
   const galeriaImagenes = [...new Set([...imagenesIzquierda, ...imagenesDerecha])];
@@ -133,6 +135,24 @@ export default function Home() {
     };
   }, [indiceImagenAmpliada]);
 
+  useEffect(() => {
+    const target = videoSectionRef.current;
+    if (!target || debeCargarVideo) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setDebeCargarVideo(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "220px 0px" }
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [debeCargarVideo]);
+
   return (
     <div className="max-w-6xl mx-auto px-6">
 
@@ -172,7 +192,7 @@ export default function Home() {
       </section>
 
       {/* VIDEO + IMÁGENES */}
-      <section className="mt-1 animate-fade-in-up flex flex-col items-center">
+      <section ref={videoSectionRef} className="mt-1 animate-fade-in-up flex flex-col items-center">
 
         {/* Escritorio */}
         <div className="hidden md:flex w-full items-center justify-center gap-16">
@@ -204,15 +224,22 @@ export default function Home() {
           {/* VIDEO */}
           <div className="w-1/3 h-[520px] rounded-xl overflow-hidden relative border border-slate-300/60 bg-white/40 shadow-[0_8px_20px_rgba(15,23,42,0.08)]">
             <video
-              src="/video/video1.webm"
               autoPlay
               loop
               muted
               playsInline
-              preload="metadata"
+              preload="none"
+              poster="/img/i1862459534.webp"
               onLoadedMetadata={setPremiumPlaybackRate}
               className="w-full h-full object-cover object-top rounded-xl brightness-[1.03] contrast-[1.05] saturate-[1.02]"
-            />
+            >
+              {debeCargarVideo ? (
+                <>
+                  <source src="/video/video1-optimized.webm" type="video/webm" />
+                  <source src="/video/video1-optimized.mp4" type="video/mp4" />
+                </>
+              ) : null}
+            </video>
             <div className="absolute inset-[1px] pointer-events-none rounded-[11px] border border-white/70" />
           </div>
 
@@ -248,15 +275,22 @@ export default function Home() {
           {/* VIDEO */}
           <div className="w-full rounded-xl overflow-hidden h-[560px] flex items-center justify-center mb-6 relative border border-slate-300/60 bg-white/40 shadow-[0_8px_20px_rgba(15,23,42,0.08)]">
             <video
-              src="/video/video1.webm"
               autoPlay
               loop
               muted
               playsInline
-              preload="metadata"
+              preload="none"
+              poster="/img/i1862459534.webp"
               onLoadedMetadata={setPremiumPlaybackRate}
               className="w-full h-full object-cover object-top rounded-xl brightness-[1.03] contrast-[1.05] saturate-[1.02]"
-            />
+            >
+              {debeCargarVideo ? (
+                <>
+                  <source src="/video/video1-optimized.webm" type="video/webm" />
+                  <source src="/video/video1-optimized.mp4" type="video/mp4" />
+                </>
+              ) : null}
+            </video>
             <div className="absolute inset-[1px] pointer-events-none rounded-[11px] border border-white/70" />
           </div>
 
