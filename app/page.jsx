@@ -308,7 +308,7 @@ export default function Home() {
                           bg-gradient-to-b from-black/10 via-black/5 to-black/10
                           shadow-lg shadow-black/20">
             <div className="text-3xl mb-3" aria-hidden="true">⚡</div>
-          <h3 className="text-xl font-semibold mb-2">Automático</h3>
+          <h2 className="text-xl font-semibold mb-2">Automático</h2>
             <p>Sirve la sidra con solo pulsar un botón.</p>
           </div>
 
@@ -386,7 +386,7 @@ export default function Home() {
                         bg-gradient-to-b from-black/10 via-black/5 to-black/10
                         shadow-lg shadow-black/20">
           <div className="text-3xl mb-3" aria-hidden="true">⚡</div>
-          <h3 className="text-xl font-semibold mb-2">Automático</h3>
+          <h2 className="text-xl font-semibold mb-2">Automático</h2>
           <p>Sirve la sidra con solo pulsar un botón.</p>
         </div>
 
@@ -395,7 +395,7 @@ export default function Home() {
                         bg-gradient-to-b from-black/10 via-black/5 to-black/10
                         shadow-lg shadow-black/20">
           <div className="text-3xl mb-3" aria-hidden="true">🔋</div>
-          <h3 className="text-xl font-semibold mb-2">A batería</h3>
+          <h2 className="text-xl font-semibold mb-2">A batería</h2>
           <p>Autonomía perfecta para reuniones y eventos.</p>
         </div>
 
@@ -404,7 +404,7 @@ export default function Home() {
                         bg-gradient-to-b from-black/10 via-black/5 to-black/10
                         shadow-lg shadow-black/20">
           <div className="text-3xl mb-3" aria-hidden="true">✨</div>
-          <h3 className="text-xl font-semibold mb-2">Diseño elegante</h3>
+          <h2 className="text-xl font-semibold mb-2">Diseño elegante</h2>
           <p>Acabado moderno en acero y madera.</p>
         </div>
 

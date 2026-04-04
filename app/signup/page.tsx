@@ -93,9 +93,9 @@ export default function SignupPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h1 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Crear nueva cuenta
-          </h2>
+          </h1>
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSignup}>
@@ -111,6 +111,7 @@ export default function SignupPage() {
               name="email"
               type="email"
               required
+              aria-label="Correo electrónico"
               placeholder="Correo electrónico"
               className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300"
               value={formData.email}
@@ -122,6 +123,7 @@ export default function SignupPage() {
               name="name"
               type="text"
               required
+              aria-label="Nombre"
               placeholder="Nombre"
               className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300"
               value={formData.name}
@@ -133,6 +135,7 @@ export default function SignupPage() {
               name="lastname"
               type="text"
               required
+              aria-label="Apellidos"
               placeholder="Apellidos"
               className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300"
               value={formData.lastname}
@@ -143,6 +146,7 @@ export default function SignupPage() {
               id="addressLine1"
               name="addressLine1"
               type="text"
+              aria-label="Dirección línea 1"
               placeholder="Dirección línea 1 - Tipo de vía (calle, avenida, etc)"
               className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300"
               value={formData.shipping.addressLine1}
@@ -153,6 +157,7 @@ export default function SignupPage() {
               id="addressLine2"
               name="addressLine2"
               type="text"
+              aria-label="Dirección línea 2"
               placeholder="Dirección línea 2 - Piso, puerta, escalera, bloque o datos adicionales"
               className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300"
               value={formData.shipping.addressLine2}
@@ -164,6 +169,7 @@ export default function SignupPage() {
                 id="postalCode"
                 name="postalCode"
                 type="text"
+                aria-label="Código postal"
                 placeholder="Código Postal"
                 className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300"
                 value={formData.shipping.postalCode}
@@ -174,6 +180,7 @@ export default function SignupPage() {
                 id="city"
                 name="city"
                 type="text"
+                aria-label="Localidad o ciudad"
                 placeholder="Localidad / Ciudad"
                 className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300"
                 value={formData.shipping.city}
@@ -184,6 +191,7 @@ export default function SignupPage() {
                 id="province"
                 name="province"
                 type="text"
+                aria-label="Provincia"
                 placeholder="Provincia"
                 className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300"
                 value={formData.shipping.province}
@@ -196,6 +204,7 @@ export default function SignupPage() {
                 id="country"
                 name="country"
                 type="text"
+                aria-label="País"
                 placeholder="País"
                 className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300"
                 value={formData.shipping.country}
@@ -206,6 +215,7 @@ export default function SignupPage() {
                 id="nif"
                 name="nif"
                 type="text"
+                aria-label="NIF"
                 placeholder="N.I.F."
                 className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300"
                 value={formData.shipping.nif}
@@ -217,6 +227,7 @@ export default function SignupPage() {
               id="phone"
               name="phone"
               type="tel"
+              aria-label="Teléfono de contacto"
               placeholder="Teléfono de contacto"
               className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300"
               value={formData.shipping.phone}
@@ -228,6 +239,7 @@ export default function SignupPage() {
               name="password"
               type="password"
               required
+              aria-label="Contraseña"
               placeholder="Contraseña"
               className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300"
               value={formData.password}
@@ -239,6 +251,7 @@ export default function SignupPage() {
               name="confirmPassword"
               type="password"
               required
+              aria-label="Confirmar contraseña"
               placeholder="Confirmar contraseña"
               className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300"
               value={formData.confirmPassword}
