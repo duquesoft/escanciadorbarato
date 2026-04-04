@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 // trigger redeploy
 
@@ -199,10 +200,14 @@ export default function Home() {
 
           {/* Imagen izquierda */}
           <div className="w-1/3 h-[520px] rounded-xl overflow-hidden relative border border-slate-300/60 bg-white/40 shadow-[0_8px_20px_rgba(15,23,42,0.08)]">
-            <img
+            <Image
               src={imagenesIzquierda[indexIzquierda]}
-              className="absolute inset-0 w-full h-full object-cover scale-125 blur-lg opacity-70"
               alt="Fondo desenfocado del producto"
+              fill
+              sizes="(max-width: 767px) 50vw, 33vw"
+              quality={45}
+              className="absolute inset-0 w-full h-full object-cover scale-125 blur-lg opacity-70"
+              aria-hidden="true"
             />
 
             <img
@@ -233,17 +238,26 @@ export default function Home() {
               onLoadedMetadata={setPremiumPlaybackRate}
               className="w-full h-full object-cover object-top rounded-xl brightness-[1.03] contrast-[1.05] saturate-[1.02]"
             >
-              {debeCargarVideo ? <source src="/video/video1.webm" type="video/webm" /> : null}
+              {debeCargarVideo ? (
+                <>
+                  <source src="/video/video1-optimized.webm" type="video/webm" />
+                  <source src="/video/video1-optimized.mp4" type="video/mp4" />
+                </>
+              ) : null}
             </video>
             <div className="absolute inset-[1px] pointer-events-none rounded-[11px] border border-white/70" />
           </div>
 
           {/* Imagen derecha */}
           <div className="w-1/3 h-[520px] rounded-xl overflow-hidden relative border border-slate-300/60 bg-white/40 shadow-[0_8px_20px_rgba(15,23,42,0.08)]">
-            <img
+            <Image
               src={imagenesDerecha[indexDerecha]}
-              className="absolute inset-0 w-full h-full object-cover scale-125 blur-lg opacity-70"
               alt="Fondo desenfocado del producto"
+              fill
+              sizes="(max-width: 767px) 50vw, 33vw"
+              quality={45}
+              className="absolute inset-0 w-full h-full object-cover scale-125 blur-lg opacity-70"
+              aria-hidden="true"
             />
 
             <img
@@ -279,7 +293,12 @@ export default function Home() {
               onLoadedMetadata={setPremiumPlaybackRate}
               className="w-full h-full object-cover object-top rounded-xl brightness-[1.03] contrast-[1.05] saturate-[1.02]"
             >
-              {debeCargarVideo ? <source src="/video/video1.webm" type="video/webm" /> : null}
+              {debeCargarVideo ? (
+                <>
+                  <source src="/video/video1-optimized.webm" type="video/webm" />
+                  <source src="/video/video1-optimized.mp4" type="video/mp4" />
+                </>
+              ) : null}
             </video>
             <div className="absolute inset-[1px] pointer-events-none rounded-[11px] border border-white/70" />
           </div>
@@ -298,10 +317,14 @@ export default function Home() {
             {/* Imagen izquierda móvil */}
             <div className="w-1/2 rounded-xl overflow-hidden h-[270px] relative border border-slate-300/60 bg-white/40 shadow-[0_8px_20px_rgba(15,23,42,0.08)]">
 
-              <img
+              <Image
                 src={imagenesIzquierda[indexIzquierda]}
-                className="absolute inset-0 w-full h-full object-cover scale-125 blur-lg opacity-70"
                 alt="Fondo desenfocado del producto"
+                fill
+                sizes="(max-width: 767px) 50vw, 33vw"
+                quality={45}
+                className="absolute inset-0 w-full h-full object-cover scale-125 blur-lg opacity-70"
+                aria-hidden="true"
               />
 
               <img
@@ -323,10 +346,14 @@ export default function Home() {
             {/* Imagen derecha móvil */}
             <div className="w-1/2 rounded-xl overflow-hidden h-[270px] relative border border-slate-300/60 bg-white/40 shadow-[0_8px_20px_rgba(15,23,42,0.08)]">
 
-              <img
+              <Image
                 src={imagenesDerecha[indexDerecha]}
-                className="absolute inset-0 w-full h-full object-cover scale-125 blur-lg opacity-70"
                 alt="Fondo desenfocado del producto"
+                fill
+                sizes="(max-width: 767px) 50vw, 33vw"
+                quality={45}
+                className="absolute inset-0 w-full h-full object-cover scale-125 blur-lg opacity-70"
+                aria-hidden="true"
               />
 
               <img
