@@ -117,30 +117,30 @@ export default function ReportsPage() {
         </div>
 
         {/* KPIs principales */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-gray-600 text-sm font-medium">Ingresos Totales</p>
-            <p className="text-3xl font-bold text-gray-900 mt-2">€{totalRevenue.toFixed(2)}</p>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-6 mb-6 md:mb-8">
+          <div className="bg-white rounded-lg shadow p-4 md:p-6">
+            <p className="text-gray-600 text-xs md:text-sm font-medium">Ingresos Totales</p>
+            <p className="text-xl md:text-3xl font-bold text-gray-900 mt-2">€{totalRevenue.toFixed(2)}</p>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-gray-600 text-sm font-medium">Ticket Promedio</p>
-            <p className="text-3xl font-bold text-gray-900 mt-2">€{avgOrderValue.toFixed(2)}</p>
+          <div className="bg-white rounded-lg shadow p-4 md:p-6">
+            <p className="text-gray-600 text-xs md:text-sm font-medium">Ticket Promedio</p>
+            <p className="text-xl md:text-3xl font-bold text-gray-900 mt-2">€{avgOrderValue.toFixed(2)}</p>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-gray-600 text-sm font-medium">Enviados</p>
-            <p className="text-3xl font-bold text-green-600 mt-2">{shippedCount}</p>
+          <div className="bg-white rounded-lg shadow p-4 md:p-6">
+            <p className="text-gray-600 text-xs md:text-sm font-medium">Enviados</p>
+            <p className="text-xl md:text-3xl font-bold text-green-600 mt-2">{shippedCount}</p>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-gray-600 text-sm font-medium">Pago completado</p>
-            <p className="text-3xl font-bold text-blue-600 mt-2">{paidCount}</p>
+          <div className="bg-white rounded-lg shadow p-4 md:p-6">
+            <p className="text-gray-600 text-xs md:text-sm font-medium">Pago completado</p>
+            <p className="text-xl md:text-3xl font-bold text-blue-600 mt-2">{paidCount}</p>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-gray-600 text-sm font-medium">Pendientes</p>
-            <p className="text-3xl font-bold text-yellow-600 mt-2">{pendingCount}</p>
+          <div className="bg-white rounded-lg shadow p-4 md:p-6">
+            <p className="text-gray-600 text-xs md:text-sm font-medium">Pendientes</p>
+            <p className="text-xl md:text-3xl font-bold text-yellow-600 mt-2">{pendingCount}</p>
           </div>
-          <div className="bg-white rounded-lg shadow p-6">
-            <p className="text-gray-600 text-sm font-medium">Cancelados</p>
-            <p className="text-3xl font-bold text-red-600 mt-2">{cancelledCount}</p>
+          <div className="bg-white rounded-lg shadow p-4 md:p-6">
+            <p className="text-gray-600 text-xs md:text-sm font-medium">Cancelados</p>
+            <p className="text-xl md:text-3xl font-bold text-red-600 mt-2">{cancelledCount}</p>
           </div>
         </div>
 

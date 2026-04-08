@@ -146,7 +146,55 @@ export default function OrdersPage() {
 
         {/* Tabla de pedidos */}
         <div className="bg-white rounded-lg shadow overflow-hidden">
-          <div className="overflow-x-auto">
+
+          {/* Móvil: tarjetas */}
+          <div className="md:hidden divide-y divide-gray-200">
+            {filteredOrders.length > 0 ? (
+              filteredOrders.map((order) => (
+                <div key={order.id} className="p-4 space-y-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-xs font-mono text-gray-500">{formatOrderNumber(order.id)}</span>
+                    <select
+                      value={order.status}
+                      onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                      className={`px-2 py-1 rounded-full text-xs font-medium border-0 cursor-pointer ${
+                        order.status === 'pending'
+                          ? 'bg-yellow-100 text-yellow-800'
+                          : order.status === 'paid'
+                            ? 'bg-blue-100 text-blue-800'
+                            : order.status === 'shipped' || order.status === 'completed'
+                              ? 'bg-green-100 text-green-800'
+                              : 'bg-red-100 text-red-800'
+                      }`}
+                    >
+                      <option value="pending">Pendiente</option>
+                      <option value="paid">Pago completado</option>
+                      <option value="shipped">Enviado</option>
+                      <option value="cancelled">Cancelado</option>
+                    </select>
+                  </div>
+                  <p className="text-sm font-medium text-gray-900">{getOrderProductSummary(order)}</p>
+                  <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500">
+                    <span>Cant: {getOrderQuantity(order)}</span>
+                    <span>{getPaymentMethodLabel(getOrderPaymentMethod(order.productos))}</span>
+                    <span className="font-semibold text-gray-800">€{order.total.toFixed(2)}</span>
+                    <span>{new Date(order.created_at).toLocaleDateString('es-ES')}</span>
+                  </div>
+                  <Link
+                    href={`/admin/pedidos/${order.id}`}
+                    className="inline-block text-sm text-blue-600 hover:text-blue-700 font-medium"
+                  >
+                    Ver detalles →
+                  </Link>
+                </div>
+              ))
+            ) : (
+              <p className="p-6 text-center text-gray-500">No hay pedidos con ese estado</p>
+            )}
+          </div>
+
+          {/* Escritorio: tabla */}
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>

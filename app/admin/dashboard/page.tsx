@@ -136,7 +136,36 @@ export default function AdminDashboard() {
             <h2 className="text-xl font-bold text-gray-900">Usuarios Registrados ({users.length})</h2>
           </div>
 
-          <div className="overflow-x-auto">
+          {/* Móvil: tarjetas */}
+          <div className="md:hidden divide-y divide-gray-200">
+            {users.map((user) => (
+              <div key={user.id} className="p-4 space-y-1">
+                <p className="text-sm font-medium text-gray-900 truncate">{user.email}</p>
+                <p className="text-sm text-gray-600">
+                  {user.name || user.lastname
+                    ? `${user.name ?? ''} ${user.lastname ?? ''}`.trim()
+                    : 'Sin nombre'}
+                  {user.phone && <span className="text-gray-400"> · {user.phone}</span>}
+                </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-gray-400">
+                    {user.createdat
+                      ? new Date(user.createdat).toLocaleDateString('es-ES')
+                      : ''}
+                  </span>
+                  <Link
+                    href={`/admin/usuarios/${user.id}`}
+                    className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+                  >
+                    Ver pedidos →
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Escritorio: tabla */}
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>

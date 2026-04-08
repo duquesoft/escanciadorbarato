@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { getOrdersByUser, getAllUsers } from '@/lib/supabase/admin'
 import Link from 'next/link'
 import { getOrderProducts } from '@/lib/order-data'
@@ -39,6 +39,7 @@ export default function AdminUsersPage() {
   const [userOrders, setUserOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [ordersLoading, setOrdersLoading] = useState(false)
+  const detailRef = useRef<HTMLDivElement>(null)
 
   const getOrderProductSummary = (order: Order) => {
     const products = getOrderProducts(order.productos)
@@ -86,6 +87,9 @@ export default function AdminUsersPage() {
   const handleSelectUser = async (userId: string) => {
     setSelectedUser(userId)
     setOrdersLoading(true)
+    setTimeout(() => {
+      detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 50)
     try {
       const orders = await getOrdersByUser(userId)
       setUserOrders(orders)
@@ -156,7 +160,7 @@ export default function AdminUsersPage() {
           </div>
 
           {/* Detalles del usuario y sus pedidos */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2" ref={detailRef}>
             {selectedUser ? (
               <>
                 {/* Detalles del usuario */}
@@ -231,48 +235,79 @@ export default function AdminUsersPage() {
                   {ordersLoading ? (
                     <div className="p-6 text-center text-gray-500">Cargando pedidos...</div>
                   ) : userOrders.length > 0 ? (
-                    <div className="overflow-x-auto">
-                      <table className="w-full text-sm">
-                        <thead className="bg-gray-50">
-                          <tr>
-                            <th className="px-4 py-2 text-left font-medium text-gray-700">Producto</th>
-                            <th className="px-4 py-2 text-left font-medium text-gray-700">Cantidad</th>
-                            <th className="px-4 py-2 text-left font-medium text-gray-700">Total</th>
-                            <th className="px-4 py-2 text-left font-medium text-gray-700">Estado</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {userOrders.map((order) => (
-                            <tr key={order.id} className="border-b border-gray-200">
-                              <td className="px-4 py-2">{getOrderProductSummary(order)}</td>
-                              <td className="px-4 py-2">{getOrderQuantity(order)}</td>
-                              <td className="px-4 py-2">€{order.total.toFixed(2)}</td>
-                              <td className="px-4 py-2">
-                                <span
-                                  className={`px-2 py-1 rounded-full text-xs font-medium ${
-                                    order.status === 'pending'
-                                      ? 'bg-yellow-100 text-yellow-800'
-                                      : order.status === 'paid'
-                                      ? 'bg-blue-100 text-blue-800'
-                                      : order.status === 'shipped' || order.status === 'completed'
-                                      ? 'bg-green-100 text-green-800'
-                                      : 'bg-red-100 text-red-800'
-                                  }`}
-                                >
-                                  {order.status === 'pending'
-                                    ? 'Pendiente'
-                                    : order.status === 'paid'
-                                    ? 'Pago completado'
-                                    : order.status === 'shipped' || order.status === 'completed'
-                                    ? 'Enviado'
-                                    : 'Cancelado'}
-                                </span>
-                              </td>
+                    <>
+                      {/* Móvil: tarjetas */}
+                      <div className="md:hidden divide-y divide-gray-200">
+                        {userOrders.map((order) => (
+                          <div key={order.id} className="p-4 space-y-1">
+                            <p className="text-sm font-medium text-gray-900">{getOrderProductSummary(order)}</p>
+                            <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500">
+                              <span>Cant: {getOrderQuantity(order)}</span>
+                              <span className="font-semibold text-gray-800">€{order.total.toFixed(2)}</span>
+                            </div>
+                            <span
+                              className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
+                                order.status === 'pending'
+                                  ? 'bg-yellow-100 text-yellow-800'
+                                  : order.status === 'paid'
+                                  ? 'bg-blue-100 text-blue-800'
+                                  : order.status === 'shipped' || order.status === 'completed'
+                                  ? 'bg-green-100 text-green-800'
+                                  : 'bg-red-100 text-red-800'
+                              }`}
+                            >
+                              {order.status === 'pending' ? 'Pendiente'
+                                : order.status === 'paid' ? 'Pago completado'
+                                : order.status === 'shipped' || order.status === 'completed' ? 'Enviado'
+                                : 'Cancelado'}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                      {/* Escritorio: tabla */}
+                      <div className="hidden md:block overflow-x-auto">
+                        <table className="w-full text-sm">
+                          <thead className="bg-gray-50">
+                            <tr>
+                              <th className="px-4 py-2 text-left font-medium text-gray-700">Producto</th>
+                              <th className="px-4 py-2 text-left font-medium text-gray-700">Cantidad</th>
+                              <th className="px-4 py-2 text-left font-medium text-gray-700">Total</th>
+                              <th className="px-4 py-2 text-left font-medium text-gray-700">Estado</th>
                             </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+                          </thead>
+                          <tbody>
+                            {userOrders.map((order) => (
+                              <tr key={order.id} className="border-b border-gray-200">
+                                <td className="px-4 py-2">{getOrderProductSummary(order)}</td>
+                                <td className="px-4 py-2">{getOrderQuantity(order)}</td>
+                                <td className="px-4 py-2">€{order.total.toFixed(2)}</td>
+                                <td className="px-4 py-2">
+                                  <span
+                                    className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                      order.status === 'pending'
+                                        ? 'bg-yellow-100 text-yellow-800'
+                                        : order.status === 'paid'
+                                        ? 'bg-blue-100 text-blue-800'
+                                        : order.status === 'shipped' || order.status === 'completed'
+                                        ? 'bg-green-100 text-green-800'
+                                        : 'bg-red-100 text-red-800'
+                                    }`}
+                                  >
+                                    {order.status === 'pending'
+                                      ? 'Pendiente'
+                                      : order.status === 'paid'
+                                      ? 'Pago completado'
+                                      : order.status === 'shipped' || order.status === 'completed'
+                                      ? 'Enviado'
+                                      : 'Cancelado'}
+                                  </span>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </>
                   ) : (
                     <div className="p-6 text-center text-gray-500">Este usuario no tiene pedidos</div>
                   )}
