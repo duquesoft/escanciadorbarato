@@ -5,14 +5,13 @@ export default function PoliticaCookiesPage() {
       <section className="bg-white/80 rounded-xl shadow-lg border border-green-200 max-w-2xl w-full p-8 backdrop-blur-md">
         <h1 className="text-2xl md:text-3xl font-bold text-green-800 mb-6 border-b border-green-300 pb-2">Política de Cookies</h1>
         <div className="space-y-6 text-gray-800 text-base md:text-lg">
-          <section>
+          <div>
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">¿Qué son las cookies?</h2>
             <p>
               Las cookies y tecnologías similares son pequeños archivos o espacios de almacenamiento que se guardan en tu dispositivo cuando visitas una página web. Sirven para posibilitar funciones técnicas, recordar determinadas preferencias o, si lo autorizas, medir el uso de la web y personalizar contenidos.
             </p>
-          </section>
-
-          <section>
+          </div>
+          <div>
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">Qué utiliza actualmente esta web</h2>
             <div className="space-y-4">
               <div>
