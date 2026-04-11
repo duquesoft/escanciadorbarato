@@ -35,24 +35,11 @@ export default function AvisoLegalPage() {
           <div>
             <h2 className="text-xl font-semibold text-green-900 mb-2">Enlaces a Terceros</h2>
             <p>
-              El sitio web puede contener enlaces a sitios web de terceros. No somos responsables del contenido, exactitud o prácticas de privacidad de estos sitios web externos.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">Ley Aplicable</h2>
-            <p>
-              Este Aviso Legal se rige por las leyes de España y los tribunales españoles serán competentes para resolver cualquier controversia.
-            </p>
-          </section>
-
-          <div className="bg-gray-100 border-l-4 border-blue-500 p-4 mt-8">
-            <p className="text-sm text-gray-600">
-              Última actualización: {new Date().toLocaleDateString('es-ES')}
+              El sitio puede incluir enlaces a páginas de terceros. No nos hacemos responsables del contenido o prácticas de privacidad de dichos sitios.
             </p>
           </div>
         </div>
-      </div>
-    </div>
-  )
+      </section>
+    </main>
+  );
 }
