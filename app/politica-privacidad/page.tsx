@@ -1,10 +1,9 @@
 export default function PoliticaPrivacidadPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">Política de Privacidad</h1>
-
-        <div className="bg-white rounded-lg shadow p-8 space-y-6 text-gray-700">
+    <main className="flex justify-center items-start min-h-[60vh] py-10 px-2 bg-transparent">
+      <section className="bg-white/80 rounded-xl shadow-lg border border-green-200 max-w-2xl w-full p-8 backdrop-blur-md">
+        <h1 className="text-2xl md:text-3xl font-bold text-green-800 mb-6 border-b border-green-300 pb-2">Política de Privacidad</h1>
+        <div className="space-y-6 text-gray-800 text-base md:text-lg">
           <section>
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Información que Recopilamos</h2>
             <p className="mb-4">Recopilamos la siguiente información:</p>
